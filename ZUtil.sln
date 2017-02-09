@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUtil", "ZUtil\ZUtil.csproj", "{E40FA745-F139-4923-AA68-D1ADA7F85225}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{2C55E69A-8EED-4A15-BD2F-1EB061BA5BB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasswordUtil", "PasswordUtil\PasswordUtil.csproj", "{77648748-B6BF-4F2E-8D00-F2CB70D37A6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E40FA745-F139-4923-AA68-D1ADA7F85225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E40FA745-F139-4923-AA68-D1ADA7F85225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E40FA745-F139-4923-AA68-D1ADA7F85225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C55E69A-8EED-4A15-BD2F-1EB061BA5BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C55E69A-8EED-4A15-BD2F-1EB061BA5BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C55E69A-8EED-4A15-BD2F-1EB061BA5BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C55E69A-8EED-4A15-BD2F-1EB061BA5BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77648748-B6BF-4F2E-8D00-F2CB70D37A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77648748-B6BF-4F2E-8D00-F2CB70D37A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77648748-B6BF-4F2E-8D00-F2CB70D37A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77648748-B6BF-4F2E-8D00-F2CB70D37A6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

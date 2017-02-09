@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E40FA745-F139-4923-AA68-D1ADA7F85225}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{2C55E69A-8EED-4A15-BD2F-1EB061BA5BB7}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZUtil</RootNamespace>
-    <AssemblyName>ZUtil</AssemblyName>
+    <RootNamespace>Test</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,10 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,39 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="easysql\BaseDatabase.cs" />
-    <Compile Include="easysql\BaseDBHelper.cs" />
-    <Compile Include="easysql\DatabaseFactory.cs" />
-    <Compile Include="easysql\DatabaseType.cs" />
-    <Compile Include="easysql\DBHelperFactory.cs" />
-    <Compile Include="easysql\DBUtil.cs" />
-    <Compile Include="easysql\ExcelDatabase.cs" />
-    <Compile Include="easysql\ExcelHelper.cs" />
-    <Compile Include="easysql\MySqlDatabase.cs" />
-    <Compile Include="easysql\MySqlHelper.cs" />
-    <Compile Include="easysql\OleDatabase.cs" />
-    <Compile Include="easysql\OracleDatabase.cs" />
-    <Compile Include="easysql\OracleHelper.cs" />
-    <Compile Include="easysql\PinYinUtil.cs" />
-    <Compile Include="easysql\Restrain.cs" />
-    <Compile Include="easysql\SqliteDatabase.cs" />
-    <Compile Include="easysql\SqliteHelper.cs" />
-    <Compile Include="easysql\SqlServerDatabase.cs" />
-    <Compile Include="easysql\SqlServerHelper.cs" />
-    <Compile Include="EmailUtil.cs" />
-    <Compile Include="FileUtil.cs" />
-    <Compile Include="HttpUtil.cs" />
-    <Compile Include="IpUtil.cs" />
-    <Compile Include="PasswordUtil.cs" />
-    <Compile Include="PinYinUtil.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmsUtil.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="mysql.data.dll" />
-    <Content Include="System.Data.SQLite.dll" />
-    <Content Include="x64\SQLite.Interop.dll" />
-    <Content Include="x86\SQLite.Interop.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
