@@ -42,14 +42,14 @@ namespace easysql
                     }
                     if (pType.Equals(typeof(String)))
                     {
-                        if (value.ToString().Length!=0)
+                        if (value.ToString().Length != 0)
                         {
                             //如果是字符串类型，则加入like约束
                             sqlWhere.AppendFormat(" and {0} like {{{1}}}", name, i++);
                             paramValues.Add("%" + value + "%");
                         }
                     }
-                    else if(pType.IsValueType)
+                    else if (pType.IsValueType)
                     {
                         //如果是值类型,则加入等于约束
                         sqlWhere.AppendFormat(" and {0}={{{1}}}", name, i++);
@@ -78,41 +78,41 @@ namespace easysql
                                 sqlWhere.AppendFormat(" and {0}<={{{1}}}", restrain.Key, i++);
                                 paramValues.Add(end);
                             }
-                           break;
+                            break;
                         case RestrainType.inc:
                         case RestrainType.notin:
-                           var arr = new List<String>();
-                           foreach (var obj in restrain.Values)
-                           {
-                               arr.Add("'" + obj.ToString().Replace("'", "''") + "'");
-                           }
-                           String ci = " in ";
-                           if (restrain.RestrainType == RestrainType.notin)
-                           {
-                               ci = " not in ";
-                           }
-                           sqlWhere.Append(" and " + restrain.Key + " "+ci+" (" + string.Join(",", arr) + ")");
-                           break;
+                            var arr = new List<String>();
+                            foreach (var obj in restrain.Values)
+                            {
+                                arr.Add("'" + obj.ToString().Replace("'", "''") + "'");
+                            }
+                            String ci = " in ";
+                            if (restrain.RestrainType == RestrainType.notin)
+                            {
+                                ci = " not in ";
+                            }
+                            sqlWhere.Append(" and " + restrain.Key + " " + ci + " (" + string.Join(",", arr) + ")");
+                            break;
                         case RestrainType.eq:
                             sqlWhere.AppendFormat(" and {0}={{{1}}}", restrain.Key, i++);
                             paramValues.Add(restrain.Values[0]);
-                          break;
+                            break;
                         case RestrainType.lt:
-                          sqlWhere.AppendFormat(" and {0}<{{{1}}}", restrain.Key, i++);
-                          paramValues.Add(restrain.Values[0]);
-                          break;
+                            sqlWhere.AppendFormat(" and {0}<{{{1}}}", restrain.Key, i++);
+                            paramValues.Add(restrain.Values[0]);
+                            break;
                         case RestrainType.gt:
-                          sqlWhere.AppendFormat(" and {0}>{{{1}}}", restrain.Key, i++);
-                          paramValues.Add(restrain.Values[0]);
-                          break;
+                            sqlWhere.AppendFormat(" and {0}>{{{1}}}", restrain.Key, i++);
+                            paramValues.Add(restrain.Values[0]);
+                            break;
                         case RestrainType.not:
-                          sqlWhere.AppendFormat(" and {0} != {{{1}}}", restrain.Key, i++);
-                          paramValues.Add(restrain.Values[0]);
-                          break;
+                            sqlWhere.AppendFormat(" and {0} != {{{1}}}", restrain.Key, i++);
+                            paramValues.Add(restrain.Values[0]);
+                            break;
                         case RestrainType.like:
-                          sqlWhere.AppendFormat(" and {0} like {{{1}}}", restrain.Key, i++);
-                          paramValues.Add(restrain.Values[0]);
-                          break;
+                            sqlWhere.AppendFormat(" and {0} like {{{1}}}", restrain.Key, i++);
+                            paramValues.Add(restrain.Values[0]);
+                            break;
 
                         case RestrainType.add:
                             sqlWhere.Append(" and " + restrain.Values[0] + " ");
@@ -184,16 +184,8 @@ namespace easysql
 
             foreach (DataRow dr in dt.Rows)
             {
-                var model = new T();
-                foreach (var p in prlist)
-                {
-                    var val = dr[p.Name];
-                    if (val != DBNull.Value)
-                    {
-                        p.SetValue(model, val, null);
-                    }
-                }
 
+                var model = ToModel<T>(dr);
                 result.Add(model);
             }
 
@@ -202,28 +194,34 @@ namespace easysql
 
         public static T ToModel<T>(DataRow dr) where T : new()
         {
-            var result = new T();
-            Type type = result.GetType();
-            PropertyInfo[] pis = type.GetProperties();
-            foreach (var p in pis)
+            var model = new T();
+            Type type = model.GetType();
+            PropertyInfo[] prlist = type.GetProperties();
+            foreach (var p in prlist)
             {
-                object val = null;
-                try
-                {
-                    val = dr[p.Name];
-                }
-                catch
-                {
-                    //如果dr里面没有该列，则跳过
-                    continue;
-                }
+                object val = dr[p.Name];
                 if (val != DBNull.Value)
                 {
-                    p.SetValue(result, val, null);
-                }
+                    var valType = val.GetType();
+                    var pType = p.PropertyType;
+                    if (valType != pType)
+                    {//类型转换
 
+                        if (valType.Equals(typeof(Int64)) && pType.Equals(typeof(Int32)))
+                        {
+                            val = (int)(long)val;
+                        }
+                        else if (valType.Equals(typeof(String)) && pType.Equals(typeof(DateTime)))
+                        {
+                            val = DateTime.Parse(val.ToString());
+                        }
+                    }
+
+                    p.SetValue(model, val, null);
+                }
             }
-            return result;
+            return model;
+
         }
 
         /// <summary>
