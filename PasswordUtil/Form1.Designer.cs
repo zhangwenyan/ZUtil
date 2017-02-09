@@ -37,21 +37,29 @@
             this.button1 = new System.Windows.Forms.Button();
             this.txt_youoPwd_password = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.txt_zPwd_msg = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button9 = new System.Windows.Forms.Button();
+            this.txt_zPwd_password = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -59,6 +67,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -151,6 +160,32 @@
             this.tabPage2.Text = "Md5加密";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(78, 256);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(306, 116);
+            this.textBox2.TabIndex = 4;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(390, 63);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(109, 46);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "md5 32加密";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(78, 63);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(306, 116);
+            this.textBox1.TabIndex = 0;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label3);
@@ -168,65 +203,23 @@
             this.tabPage3.Text = "Des加密解密";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // label3
             // 
-            this.textBox1.Location = new System.Drawing.Point(78, 63);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(306, 116);
-            this.textBox1.TabIndex = 0;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(54, 276);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 15);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "结果:";
             // 
-            // button4
+            // label1
             // 
-            this.button4.Location = new System.Drawing.Point(390, 63);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(109, 46);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "md5 32加密";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(78, 256);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(306, 116);
-            this.textBox2.TabIndex = 4;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(126, 48);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(254, 130);
-            this.textBox3.TabIndex = 0;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(126, 208);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(254, 25);
-            this.textBox4.TabIndex = 1;
-            this.textBox4.Text = "12345678";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(126, 273);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(254, 130);
-            this.textBox5.TabIndex = 2;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(386, 48);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(109, 57);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "加密";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(31, 211);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 15);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "8位密码:";
             // 
             // button6
             // 
@@ -238,23 +231,111 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // label1
+            // button5
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 211);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 15);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "8位密码:";
+            this.button5.Location = new System.Drawing.Point(386, 48);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(109, 57);
+            this.button5.TabIndex = 4;
+            this.button5.Text = "加密";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // label3
+            // textBox5
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 276);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 15);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "结果:";
+            this.textBox5.Location = new System.Drawing.Point(126, 273);
+            this.textBox5.Multiline = true;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(254, 130);
+            this.textBox5.TabIndex = 2;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(126, 208);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(254, 25);
+            this.textBox4.TabIndex = 1;
+            this.textBox4.Text = "12345678";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(126, 48);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(254, 130);
+            this.textBox3.TabIndex = 0;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.button7);
+            this.tabPage4.Controls.Add(this.button8);
+            this.tabPage4.Controls.Add(this.txt_zPwd_msg);
+            this.tabPage4.Controls.Add(this.label4);
+            this.tabPage4.Controls.Add(this.button9);
+            this.tabPage4.Controls.Add(this.txt_zPwd_password);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(617, 430);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "ZPwd加密解密";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(396, 288);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(109, 46);
+            this.button7.TabIndex = 6;
+            this.button7.Text = "复制";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(396, 110);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(109, 46);
+            this.button8.TabIndex = 5;
+            this.button8.Text = "z解密";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // txt_zPwd_msg
+            // 
+            this.txt_zPwd_msg.Location = new System.Drawing.Point(70, 227);
+            this.txt_zPwd_msg.Multiline = true;
+            this.txt_zPwd_msg.Name = "txt_zPwd_msg";
+            this.txt_zPwd_msg.Size = new System.Drawing.Size(320, 107);
+            this.txt_zPwd_msg.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(65, 199);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 25);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "结果:";
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(396, 49);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(109, 46);
+            this.button9.TabIndex = 2;
+            this.button9.Text = "z加密";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // txt_zPwd_password
+            // 
+            this.txt_zPwd_password.Location = new System.Drawing.Point(70, 49);
+            this.txt_zPwd_password.Multiline = true;
+            this.txt_zPwd_password.Name = "txt_zPwd_password";
+            this.txt_zPwd_password.Size = new System.Drawing.Size(320, 107);
+            this.txt_zPwd_password.TabIndex = 1;
             // 
             // Form1
             // 
@@ -273,6 +354,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -299,5 +382,12 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox txt_zPwd_msg;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.TextBox txt_zPwd_password;
     }
 }

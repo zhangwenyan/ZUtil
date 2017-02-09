@@ -45,5 +45,20 @@ namespace PasswordUtil
         {
             textBox5.Text = ZUtil.PasswordUtil.DecryptDES(textBox3.Text, textBox4.Text);
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            txt_zPwd_msg.Text = ZUtil.PasswordUtil.ZEncrypt(txt_zPwd_password.Text);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            txt_zPwd_msg.Text = ZUtil.PasswordUtil.ZDecrypt(txt_zPwd_password.Text);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(txt_zPwd_msg.Text);
+        }
     }
 }

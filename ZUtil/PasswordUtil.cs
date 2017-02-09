@@ -57,6 +57,29 @@ namespace ZUtil
             return sBuilder.ToString();
         }
 
+        private static String zEncryptKey = "zhangwen";
+        private static Regex reg_ZPwd = new Regex(@"^ZPwd\[(.*)\]$");
+        public static String ZEncrypt(String str)
+        {
+            if (reg_ZPwd.IsMatch(str))
+            {
+                return str;
+            }
+            return "ZPwd[" + EncryptDES(str, zEncryptKey) + "]";
+        }
+        public static String ZDecrypt(String str)
+        {
+            Match m = reg_ZPwd.Match(str);
+            if (m.Success)
+            {
+                return DecryptDES(m.Groups[1].Value, zEncryptKey);
+            }
+            else
+            {
+                return str;
+            }
+        }
+
 
         private static String youoEncryptKey = "youotech";
         private static Regex reg_YouoPwd = new Regex(@"^YouoPwd\[(.*)\]$");
