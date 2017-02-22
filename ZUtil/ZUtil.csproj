@@ -63,6 +63,7 @@
     <Compile Include="easysql\SqlServerDatabase.cs" />
     <Compile Include="easysql\SqlServerHelper.cs" />
     <Compile Include="EmailUtil.cs" />
+    <Compile Include="ex\SmsUtilException.cs" />
     <Compile Include="FileUtil.cs" />
     <Compile Include="HttpUtil.cs" />
     <Compile Include="IpUtil.cs" />

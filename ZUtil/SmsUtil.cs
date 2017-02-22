@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using ZUtil.ex;
 
 namespace ZUtil
 {
@@ -32,14 +33,29 @@ namespace ZUtil
         /// <param name="dt">发送短信的时间</param>
         public static void sendSms(String mbno,String msg,DateTime dt)
         {
-            String connStr_smsdb = ConfigurationManager.AppSettings["connStr_smsdb"];
-            String dbType = ConfigurationManager.AppSettings["dbType_smsdb"];
 
-            if (String.IsNullOrEmpty(connStr_smsdb))
+            String smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
+
+            if (smsSendWay == "db")
             {
-                throw new Exception("没有配置短信数据库连接字符串connStr_smsdb");
+                String connStr_smsdb = ConfigurationManager.AppSettings["connStr_smsdb"];
+                String dbType = ConfigurationManager.AppSettings["dbType_smsdb"];
+
+                if (String.IsNullOrEmpty(connStr_smsdb))
+                {
+                    throw new SmsUtilException("没有配置短信数据库连接字符串connStr_smsdb");
+                }
+                sendSmsByConnStr_smsdb(mbno, msg, dt, connStr_smsdb, dbType);
             }
-            sendSmsByConnStr_smsdb(mbno, msg,dt,connStr_smsdb,dbType);
+            else if(smsSendWay == "zsms")
+            {
+                DllUtil.execute("zsms.dll", "zsms.SmsMethod", "sendSms", new object[] { mbno,msg });
+            }
+            else
+            {
+                throw new SmsUtilException("unknow smsSendWay");
+            }
+
         }
         /// <summary>
         /// 发送短信
