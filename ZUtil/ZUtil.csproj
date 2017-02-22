@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DllUtil.cs" />
     <Compile Include="easysql\BaseDatabase.cs" />
     <Compile Include="easysql\BaseDBHelper.cs" />
     <Compile Include="easysql\DatabaseFactory.cs" />
