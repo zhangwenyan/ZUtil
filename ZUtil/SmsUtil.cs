@@ -24,7 +24,7 @@ namespace ZUtil
         }
         /// <summary>
         /// 指定时间发送短信
-        /// 需要配置短信数据库连接字符串connStr_smsdb
+        /// 需要配置短信数据库连接字符串connStr_smsdb dbType_smsdb
         /// <add key="connStr_smsdb" value="server=192.168.1.223;database=smsdb;Persist Security Info=False;uid=root;pwd=123456"/>
         /// </summary>
         /// <param name="mbno">接收短信的手机号</param>
@@ -33,11 +33,13 @@ namespace ZUtil
         public static void sendSms(String mbno,String msg,DateTime dt)
         {
             String connStr_smsdb = ConfigurationManager.AppSettings["connStr_smsdb"];
+            String dbType = ConfigurationManager.AppSettings["dbType_smsdb"];
+
             if (String.IsNullOrEmpty(connStr_smsdb))
             {
                 throw new Exception("没有配置短信数据库连接字符串connStr_smsdb");
             }
-            sendSmsByConnStr_smsdb(mbno, msg,dt,connStr_smsdb);
+            sendSmsByConnStr_smsdb(mbno, msg,dt,connStr_smsdb,dbType);
         }
         /// <summary>
         /// 发送短信
@@ -55,10 +57,20 @@ namespace ZUtil
         /// <param name="mbno"></param>
         /// <param name="msg"></param>
         /// <param name="dt"></param>
-        /// <param name="connStr_smsdb">短信数据库smsdb连接字符串</param>
+        /// <param name="connStr_smsdb">短信数据库smsdb连接字符串,mysql数据库</param>
         public static void sendSmsByConnStr_smsdb(String mbno,String msg,DateTime dt,String connStr_smsdb)
         {
-            var dh = easysql.DBHelperFactory.CreateMysqlHelper(connStr_smsdb);
+            sendSmsByConnStr_smsdb(mbno, msg, dt, connStr_smsdb, "mysql");
+        }
+
+        public static void sendSmsByConnStr_smsdb(String mbno, String msg, DateTime dt, String connStr_smsdb,String dbType)
+        {
+            if (String.IsNullOrEmpty(connStr_smsdb))
+            {
+                connStr_smsdb = "mysql";
+            }
+
+           var dh = easysql.DBHelperFactory.Create(dbType, connStr_smsdb);
             if (dt != DateTime.MinValue)
             {
                 dh.Execute("insert into OutBox(mbno, msg,sendTime) values({0},{1},{2})", mbno, msg, dt);
@@ -67,9 +79,11 @@ namespace ZUtil
             {
                 dh.Execute("insert into OutBox(mbno, msg) values({0},{1})", mbno, msg);
             }
+
         }
 
 
 
-    }
+
+        }
 }
