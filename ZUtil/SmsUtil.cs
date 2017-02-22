@@ -37,7 +37,7 @@ namespace ZUtil
             {
                 throw new Exception("没有配置短信数据库连接字符串connStr_smsdb");
             }
-            sendSmsByConnStr_smsdb(mbno, connStr_smsdb,dt,connStr_smsdb);
+            sendSmsByConnStr_smsdb(mbno, msg,dt,connStr_smsdb);
         }
         /// <summary>
         /// 发送短信
