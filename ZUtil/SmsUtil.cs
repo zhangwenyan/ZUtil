@@ -12,6 +12,7 @@ namespace ZUtil
     /// </summary>
     public class SmsUtil
     {
+        public static string smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
         /// <summary>
         /// 发送短信
         /// 需要配置短信数据库连接字符串connStr_smsdb
@@ -34,7 +35,6 @@ namespace ZUtil
         public static void sendSms(String mbno,String msg,DateTime dt)
         {
 
-            String smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
 
             if (smsSendWay == "db")
             {
@@ -81,9 +81,9 @@ namespace ZUtil
 
         public static void sendSmsByConnStr_smsdb(String mbno, String msg, DateTime dt, String connStr_smsdb,String dbType)
         {
-            if (String.IsNullOrEmpty(connStr_smsdb))
+            if (String.IsNullOrEmpty(dbType))
             {
-                connStr_smsdb = "mysql";
+                dbType = "mysql";
             }
 
            var dh = easysql.DBHelperFactory.Create(dbType, connStr_smsdb);
