@@ -73,7 +73,9 @@
     <Compile Include="SmsUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="mysql.data.dll" />
+    <Content Include="mysql.data.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="System.Data.SQLite.dll" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />

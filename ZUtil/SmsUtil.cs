@@ -12,6 +12,8 @@ namespace ZUtil
     /// </summary>
     public class SmsUtil
     {
+        public static readonly String smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
+
         /// <summary>
         /// 发送短信
         /// 需要配置短信数据库连接字符串connStr_smsdb
@@ -34,8 +36,7 @@ namespace ZUtil
         public static void sendSms(String mbno,String msg,DateTime dt)
         {
 
-            String smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
-
+       
             if (smsSendWay == "db")
             {
                 String connStr_smsdb = ConfigurationManager.AppSettings["connStr_smsdb"];
@@ -49,7 +50,16 @@ namespace ZUtil
             }
             else if(smsSendWay == "zsms")
             {
-                DllUtil.execute("zsms.dll", "zsms.SmsMethod", "sendSms", new object[] { mbno,msg });
+                try
+                {
+                    DllUtil.execute("zsms.dll", "zsms.SmsMethod", "sendSms", new object[] { mbno, msg });
+                }catch(Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        throw ex.InnerException;
+                    }
+                }
             }
             else
             {

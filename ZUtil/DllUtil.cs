@@ -27,8 +27,14 @@ namespace ZUtil
 
                 if (!File.Exists(dPath))
                 {
+                    dPath = AppDomain.CurrentDomain.BaseDirectory +"bin\\"+ filename;
+                }
+
+                if (!File.Exists(dPath))
+                {
                     throw new Exception("缺少" + filename + "文件");
                 }
+
 
                 assembly = Assembly.LoadFile(dPath); 
             }
@@ -45,7 +51,6 @@ namespace ZUtil
                 throw new Exception("method:" + methodName + " not exist");
             }
             return method.Invoke(null, ps);
-
         }
 
     }
