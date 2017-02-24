@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -63,6 +67,12 @@
     <Compile Include="easysql\SqlServerDatabase.cs" />
     <Compile Include="easysql\SqlServerHelper.cs" />
     <Compile Include="EmailUtil.cs" />
+    <Compile Include="eweb\attribute\Login.cs" />
+    <Compile Include="eweb\controller\BaseController.cs" />
+    <Compile Include="eweb\ex\MsgException.cs" />
+    <Compile Include="eweb\handler\MainHttpHandler.cs" />
+    <Compile Include="eweb\info\PageInfo.cs" />
+    <Compile Include="eweb\info\PageResultInfo.cs" />
     <Compile Include="ex\SmsUtilException.cs" />
     <Compile Include="FileUtil.cs" />
     <Compile Include="HttpUtil.cs" />
@@ -74,6 +84,7 @@
     <Compile Include="SmsUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dll\Newtonsoft.Json.dll" />
     <Content Include="mysql.data.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

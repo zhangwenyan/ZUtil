@@ -16,11 +16,7 @@ namespace Test
             //  var t = DllUtil.execute("zsms.dll", "zsms.SmsMethod", "sendSms", new object[] { "17681109309","test 123333" });
 
             //SmsUtil.sendSms("17681109309", "1234567890");
-            String str = "asdffasdf";
-            while (true)
-            {
-                    str += str;
-            }
+       
 
         }
     }

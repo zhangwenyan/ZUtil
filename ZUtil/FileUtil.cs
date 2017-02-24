@@ -22,7 +22,7 @@ namespace ZUtil
         /// <param name="code"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public string GetFiePathAndCreateDirectoryByCode<T>(string directory, T code, string fileName)
+        public static string GetFiePathAndCreateDirectoryByCode<T>(string directory, T code, string fileName)
         {
             if (directory == null)
             {
@@ -47,7 +47,7 @@ namespace ZUtil
         /// <param name="code"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public string GetFiePathAndCreateDirectoryByDate<T>(string directory, string fileName)
+        public static string GetFiePathAndCreateDirectoryByDate<T>(string directory, string fileName)
         {
             if (directory == null)
             {

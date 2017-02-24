@@ -19,8 +19,9 @@ namespace ZUtil
             try
             {
                 String dPath = filename;
+                
 
-                if (filename.IndexOf(":") == -1)
+                if (!Path.IsPathRooted(filename))
                 {
                     dPath = AppDomain.CurrentDomain.BaseDirectory + filename;
                 }
