@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ZUtil
 {
-    public class DllUtil
+    public static class DllUtil
     {
         public static object execute(String filename,String namespaceAndClassName,String methodName,object[] ps)
         {

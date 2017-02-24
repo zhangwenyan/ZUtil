@@ -70,6 +70,7 @@
     <Compile Include="PasswordUtil.cs" />
     <Compile Include="PinYinUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectUtil.cs" />
     <Compile Include="SmsUtil.cs" />
   </ItemGroup>
   <ItemGroup>

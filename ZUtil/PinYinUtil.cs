@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZUtil
 {
-    public class PinYinUtil
+    public static class PinYinUtil
     {
         #region 数组信息
 

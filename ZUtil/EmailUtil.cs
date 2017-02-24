@@ -11,7 +11,7 @@ namespace ZUtil
     /// <summary>
     /// 邮件操作工具类
     /// </summary>
-    public class EmailUtil
+    public static class EmailUtil
     {
 
         /// <summary>

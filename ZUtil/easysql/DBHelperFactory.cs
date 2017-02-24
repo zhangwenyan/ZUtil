@@ -6,7 +6,7 @@ using System.IO;
 
 namespace easysql
 {
-    public class DBHelperFactory
+    public static class DBHelperFactory
     {
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace easysql
     /// <summary>
     /// 生成sql语句的工具类
     /// </summary>
-    public class DBUtil
+    public static class DBUtil
     {
         /// <summary>
         /// 查询语句的转换

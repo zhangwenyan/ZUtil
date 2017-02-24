@@ -5,7 +5,7 @@ using System.Text;
 
 namespace easysql
 {
-    public class DatabaseFactory
+    public static class DatabaseFactory
     {
         public static SqlServerDatabase CreateSqlServerDatabase(string connString)
         {

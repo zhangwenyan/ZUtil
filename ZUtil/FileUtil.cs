@@ -10,7 +10,7 @@ namespace ZUtil
     /// <summary>
     /// 文件操作工具类
     /// </summary>
-    public class FileUtil
+    public static class FileUtil
     {
         #region 获取文件路并自动创建目录
         /// <summary>

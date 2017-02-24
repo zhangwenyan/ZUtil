@@ -11,7 +11,7 @@ namespace ZUtil
     /// <summary>
     /// http工具类
     /// </summary>
-    public class HttpUtil
+    public static class HttpUtil
     {
 
 

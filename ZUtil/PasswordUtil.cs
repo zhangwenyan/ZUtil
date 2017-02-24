@@ -11,7 +11,7 @@ namespace ZUtil
     /// <summary>
     /// 密码工具类
     /// </summary>
-    public class PasswordUtil
+    public static class PasswordUtil
     {
 
         /// <summary>

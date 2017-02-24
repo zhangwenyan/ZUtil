@@ -10,7 +10,7 @@ namespace ZUtil
     /// <summary>
     /// 短信工具类
     /// </summary>
-    public class SmsUtil
+    public static class SmsUtil
     {
         public static readonly String smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
 
