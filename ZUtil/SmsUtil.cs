@@ -41,11 +41,6 @@ namespace ZUtil
             {
                 String connStr_smsdb = ConfigurationManager.AppSettings["connStr_smsdb"];
                 String dbType = ConfigurationManager.AppSettings["dbType_smsdb"];
-
-                if (String.IsNullOrEmpty(connStr_smsdb))
-                {
-                    throw new SmsUtilException("没有配置短信数据库连接字符串connStr_smsdb");
-                }
                 sendSmsByConnStr_smsdb(mbno, msg, dt, connStr_smsdb, dbType);
             }
             else if(smsSendWay == "zsms")
@@ -91,12 +86,18 @@ namespace ZUtil
 
         public static void sendSmsByConnStr_smsdb(String mbno, String msg, DateTime dt, String connStr_smsdb,String dbType)
         {
-            if (String.IsNullOrEmpty(connStr_smsdb))
+            if (String.IsNullOrEmpty(dbType))
             {
-                connStr_smsdb = "mysql";
+                dbType = "mysql";
             }
 
-           var dh = easysql.DBHelperFactory.Create(dbType, connStr_smsdb);
+            if (String.IsNullOrEmpty(connStr_smsdb))
+            {
+                throw new SmsUtilException("没有配置短信数据库连接字符串connStr_smsdb");
+            }
+
+
+            var dh = easysql.DBHelperFactory.Create(dbType, connStr_smsdb);
             if (dt != DateTime.MinValue)
             {
                 dh.Execute("insert into OutBox(mbno, msg,sendTime) values({0},{1},{2})", mbno, msg, dt);
