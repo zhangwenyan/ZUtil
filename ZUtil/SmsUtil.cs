@@ -12,7 +12,7 @@ namespace ZUtil
     /// </summary>
     public static class SmsUtil
     {
-        public static readonly String smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
+        public static readonly String smsSendWay = ConfigUtil.readSetting("smsSendWay_zutil", "db");
 
         /// <summary>
         /// 发送短信
@@ -39,8 +39,8 @@ namespace ZUtil
        
             if (smsSendWay == "db")
             {
-                String connStr_smsdb = ConfigurationManager.AppSettings["connStr_smsdb"];
-                String dbType = ConfigurationManager.AppSettings["dbType_smsdb"];
+                String connStr_smsdb = ConfigUtil.readSetting("connStr_smsdb");
+                String dbType = ConfigUtil.readSetting("dbType_smsdb");
                 sendSmsByConnStr_smsdb(mbno, msg, dt, connStr_smsdb, dbType);
             }
             else if(smsSendWay == "zsms")

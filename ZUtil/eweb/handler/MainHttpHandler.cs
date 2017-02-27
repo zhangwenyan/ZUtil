@@ -33,7 +33,7 @@ namespace eweb.handler
 
             var controllerName = req.Url.AbsolutePath.Substring(1);
             controllerName = controllerName.Substring(0, controllerName.IndexOf(".")) + "Controller";
-            String action = req["action"] ?? "main";
+            String action = req["action"]?? "main";
            // Type supType = asmb.GetType("EnterpriseServerBase.DataAccess.IDBAccesser");
             var conFullName = "Web.controller." + controllerName;
             var controllerType = Assembly.Load("Web").GetType(conFullName);
@@ -98,7 +98,7 @@ namespace eweb.handler
                 }
                 else if (type.IsValueType || type.Equals(typeof(String)))
                 {
-                    String valueStr = req[p.Name];
+                    String valueStr = req.Form[p.Name];
                     if (valueStr != null)
                     {
                         if (valueStr == "" && !type.Equals(typeof(String)))
@@ -117,7 +117,7 @@ namespace eweb.handler
                     {
                         if (prop.PropertyType.IsValueType || prop.PropertyType.Equals(typeof(String)))
                         {
-                            String valStr = req[prop.Name];
+                            String valStr = req.Form[prop.Name];
                             if (valStr != null)
                             { 
                                 if (valStr == "" && !prop.PropertyType.Equals(typeof(String)))
@@ -134,7 +134,7 @@ namespace eweb.handler
                             foreach (var prop1 in props1)
                             {
 
-                                String valStr = req[prop1.Name];
+                                String valStr = req.Form[prop1.Name];
                                 if (valStr != null)
                                 {
                                     if (valStr == "" && !prop.PropertyType.Equals(typeof(String)))
@@ -168,22 +168,26 @@ namespace eweb.handler
             {
                 result = deal(context);
             }
-            catch(MsgException ex)
-            {
-                result = new
-                {
-                    success = false,
-                    error = true,
-                    msg = ex.Message
-                };
-            }
             catch (Exception ex)
             {
+                var msg = "";
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                }
+                if(ex is MsgException)
+                {
+                    msg = ex.Message;
+                }
+                else
+                {
+                    msg = "系统错误(" + ex.Message + ")";
+                }
                 result = new
                 {
                     success = false,
                     error = true,
-                    msg = "系统错误("+ex.Message+")"
+                    msg = msg
                 };
             }
             finally
