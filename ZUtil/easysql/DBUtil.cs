@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace easysql
 {
@@ -165,6 +166,20 @@ namespace easysql
             QueryBean(bean, sqlWhere, sqlOrder, list, ref i, restrains);
         }
 
+        public static String getSqlCount(String sql)
+        {
+            Regex reg = new Regex(@"^([\s\S]*)(order\s+by\s+(\w+(\s+desc)?)(,(\w+(\s+desc)?))*)\s*$");
+            var m = reg.Match(sql);
+            if (m.Success)
+            {
+                return "select count(*) from (" + m.Groups[1].Value + ") as easysql_tb";
+            }
+            else
+            {
+                throw new Exception("不能解析的sql语句");
+            }
+        }
+
         public static List<T> ToList<T>(DataTable dt) where T : new()
         {
             var result = new List<T>();
@@ -199,6 +214,10 @@ namespace easysql
             PropertyInfo[] prlist = type.GetProperties();
             foreach (var p in prlist)
             {
+                if (!dr.Table.Columns.Contains(p.Name))
+                {
+                    continue;
+                }
                 object val = dr[p.Name];
                 if (val != DBNull.Value)
                 {

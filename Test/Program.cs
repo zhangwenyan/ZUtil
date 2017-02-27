@@ -18,7 +18,8 @@ namespace Test
             // SmsUtil.sendSms("17681109309", "1234567890");
 
 
-            var ttt = ConfigUtil.readSetting("connStr_smsdb", "bbbb");
+            //var ttt = ConfigUtil.readSetting("connStr_smsdb", "bbbb");
+            var mm = MacUtil.formatMac("DC-53-60-98-7D-68");
 
         }
     }

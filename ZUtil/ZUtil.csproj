@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigUtil.cs" />
+    <Compile Include="DateTimeUtil.cs" />
     <Compile Include="DllUtil.cs" />
     <Compile Include="easysql\BaseDatabase.cs" />
     <Compile Include="easysql\BaseDBHelper.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="FileUtil.cs" />
     <Compile Include="HttpUtil.cs" />
     <Compile Include="IpUtil.cs" />
+    <Compile Include="MacUtil.cs" />
     <Compile Include="PasswordUtil.cs" />
     <Compile Include="PinYinUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

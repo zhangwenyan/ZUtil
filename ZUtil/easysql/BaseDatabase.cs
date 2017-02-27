@@ -184,14 +184,18 @@ namespace easysql
         }
 
 
-        public List<T> QueryPageBySql<T>(String sql, int page, int rows, params Object[] paramValues) where T : new()
+        public List<T> QueryPageBySql<T>(String sql, int page, int rows,out int total, params Object[] paramValues) where T : new()
         {
             DataTable dt = ExecuteDataTable(sql, (page - 1) * rows, rows, paramValues);
+            String sqlCount = DBUtil.getSqlCount(sql);
+            total = (int)ExecuteScalar(sqlCount, paramValues);
             return DBUtil.ToList<T>(dt);
         }
-        public List<dynamic> QueryPageBySql_Dy(String sql, int page, int rows, params Object[] paramValues)
+        public List<dynamic> QueryPageBySql_Dy(String sql, int page, int rows,out int total,  params Object[] paramValues)
         {
             DataTable dt = ExecuteDataTable(sql, (page - 1) * rows, rows, paramValues);
+            String sqlCount = DBUtil.getSqlCount(sql);
+            total = (int)ExecuteScalar(sqlCount, paramValues);
             return DBUtil.ToDynamic(dt);
         }
 
@@ -465,7 +469,7 @@ namespace easysql
         /// <typeparam name="T"></typeparam>
         /// <param name="tbname"></param>
         /// <param name="model"></param>
-        public void Modify<T>(String tbname, T model)
+        public int Modify<T>(String tbname, T model)
         {
             var sql1 = new StringBuilder();
             var i = 0;
@@ -497,14 +501,14 @@ namespace easysql
             if (sql1.Length == 0)
             {
                 //没有需要修改的
-                return;
+                return 0;
             }
             sql1 = sql1.Remove(sql1.Length - 1, 1);
             var sql = String.Format("update {0} set {1} where Id={{{2}}}", tbname, sql1, i++);
 
             object id = GetIdValue(model);
             paramValues.Add(id);
-            Execute(sql, paramValues.ToArray());
+            return Execute(sql, paramValues.ToArray());
         }
 
             /// <summary>
