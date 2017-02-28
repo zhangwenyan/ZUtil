@@ -9,6 +9,7 @@ namespace eweb.info
     {
         private int _page;
         public int page { get { if (_page < 1) return 1; return _page; } set { _page = value; } }
+
         public int rows { get; set; }
        
 

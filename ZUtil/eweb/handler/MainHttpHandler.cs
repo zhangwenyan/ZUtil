@@ -96,6 +96,10 @@ namespace eweb.handler
                 {
                     ps[i] = context.Response;
                 }
+                else if (type.Equals(typeof(HttpSessionState)))
+                {
+                    ps[i] = context.Session;
+                }
                 else if (type.IsValueType || type.Equals(typeof(String)))
                 {
                     String valueStr = req.Form[p.Name];

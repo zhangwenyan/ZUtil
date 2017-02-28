@@ -17,7 +17,15 @@ namespace ZUtil
         /// <returns></returns>
         public static String readSetting(String key,String def)
         {
-            return PasswordUtil.YouoDecrypt(ConfigurationManager.AppSettings[key] ?? def);
+            String val = ConfigurationManager.AppSettings[key] ?? def;
+            if (val == null)
+            {
+                return null;
+            }
+            else
+            {
+                return PasswordUtil.YouoDecrypt(val);
+            }
         }
         /// <summary>
         /// 读取配置文件的内容,如果内容是加密的,将会返回解密后的结果

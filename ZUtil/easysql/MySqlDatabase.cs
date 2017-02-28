@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using ZUtil;
 namespace easysql
 {
 
@@ -29,8 +30,9 @@ namespace easysql
                 Assembly assembly = null;
                 try
                 {
-                    assembly = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + filename); // 加载程序集（EXE 或 DLL） 
-                }catch(Exception)
+                    assembly = Assembly.LoadFile(FileUtil.findFile(filename)); // 加载程序集（EXE 或 DLL） 
+                }
+                catch (Exception e)
                 {
                     throw new Exception("缺少"+filename+"文件");
                 }

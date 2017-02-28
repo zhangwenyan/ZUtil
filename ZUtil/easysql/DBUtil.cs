@@ -168,15 +168,13 @@ namespace easysql
 
         public static String getSqlCount(String sql)
         {
-            Regex reg = new Regex(@"^([\s\S]*)(order\s+by\s+(\w+(\s+desc)?)(,(\w+(\s+desc)?))*)\s*$");
-            var m = reg.Match(sql);
-            if (m.Success)
+            if (sql.IndexOf("order ") == -1)
             {
-                return "select count(*) from (" + m.Groups[1].Value + ") as easysql_tb";
+                return sql;
             }
             else
             {
-                throw new Exception("不能解析的sql语句");
+                return "select count(*) from (" + sql.Substring(0,sql.IndexOf("order ")) + ") as easysql_tb";
             }
         }
 

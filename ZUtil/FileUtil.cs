@@ -1073,6 +1073,34 @@ namespace ZUtil
         }
         #endregion
 
+        public static String findFile(String filename)
+        {
+            String path = filename;
+
+            if (!Path.IsPathRooted(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory + filename;
+
+            }
+
+
+            if (!File.Exists(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory + filename;
+            }
+
+            if (!File.Exists(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory +"bin\\"+ filename;
+            }
+
+            if (File.Exists(path))
+            {
+                return path;
+            }
+            return filename;
+        }
+
 
     }
 }
