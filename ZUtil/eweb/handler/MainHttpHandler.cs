@@ -33,7 +33,8 @@ namespace eweb.handler
 
             var controllerName = req.Url.AbsolutePath.Substring(1);
             controllerName = controllerName.Substring(0, controllerName.IndexOf(".")) + "Controller";
-            String action = req["action"]?? "main";
+            String action = req.Form["action"] ?? req.QueryString["action"] ?? "main";
+
            // Type supType = asmb.GetType("EnterpriseServerBase.DataAccess.IDBAccesser");
             var conFullName = "Web.controller." + controllerName;
             var controllerType = Assembly.Load("Web").GetType(conFullName);
@@ -102,7 +103,7 @@ namespace eweb.handler
                 }
                 else if (type.IsValueType || type.Equals(typeof(String)))
                 {
-                    String valueStr = req.Form[p.Name];
+                    String valueStr = req.Form[p.Name]??req.QueryString[p.Name];
                     if (valueStr != null)
                     {
                         if (valueStr == "" && !type.Equals(typeof(String)))
@@ -121,7 +122,7 @@ namespace eweb.handler
                     {
                         if (prop.PropertyType.IsValueType || prop.PropertyType.Equals(typeof(String)))
                         {
-                            String valStr = req.Form[prop.Name];
+                            String valStr = req.Form[prop.Name] ?? req.QueryString[prop.Name];
                             if (valStr != null)
                             { 
                                 if (valStr == "" && !prop.PropertyType.Equals(typeof(String)))
@@ -138,7 +139,7 @@ namespace eweb.handler
                             foreach (var prop1 in props1)
                             {
 
-                                String valStr = req.Form[prop1.Name];
+                                String valStr = req.Form[prop1.Name] ?? req.QueryString[prop1.Name];
                                 if (valStr != null)
                                 {
                                     if (valStr == "" && !prop.PropertyType.Equals(typeof(String)))
