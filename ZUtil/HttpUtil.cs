@@ -60,7 +60,16 @@ namespace ZUtil
 
             reqStream.Close();
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch(WebException ex)
+            {
+                response = (HttpWebResponse)ex.Response;
+            }
+          
             Stream resStream = null;
             if ((response.Headers["content-encoding"] != null) &&
                (response.Headers["content-encoding"].ToLower() == "gzip"))
@@ -72,7 +81,13 @@ namespace ZUtil
                 resStream = response.GetResponseStream();
             }
             StreamReader sr = new StreamReader(resStream);
-            return sr.ReadToEnd();
+            var str = sr.ReadToEnd();
+            response.Close();
+            if(response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new HttpStatusCodeException(str, response.StatusCode);
+            }
+            return str;
         }
 
 
@@ -112,7 +127,16 @@ namespace ZUtil
             }
 
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }catch(WebException ex)
+            {
+                response = (HttpWebResponse)ex.Response;
+            }
+
+
             Stream resStream = null;
             if ((response.Headers["content-encoding"] != null) &&
                (response.Headers["content-encoding"].ToLower() == "gzip"))
@@ -124,7 +148,14 @@ namespace ZUtil
                 resStream = response.GetResponseStream();
             }
             StreamReader sr = new StreamReader(resStream);
-            return sr.ReadToEnd();
+
+            String str = sr.ReadToEnd();
+            response.Close();
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new HttpStatusCodeException(str, response.StatusCode);
+            }
+            return str;
         }
     }
 
@@ -154,5 +185,17 @@ namespace ZUtil
     {
         public String key { get; set; }
         public String value { get; set; }
+    }
+
+    public class HttpStatusCodeException : Exception
+    {
+        public string str { get; set; }
+        public HttpStatusCode StatusCode { get; set; }
+        public HttpStatusCodeException(String str, HttpStatusCode StatusCode):base("StatusCode is not 200")
+        {
+            this.str = str;
+            this.StatusCode = StatusCode;
+        }
+
     }
 }

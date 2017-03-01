@@ -24,6 +24,10 @@ namespace ZUtil
             byte[] bytes = Encoding.Default.GetBytes(str);
             return Convert.ToBase64String(bytes);
         }
+        public static String base64Encoded(byte[] bytes)
+        {
+            return Convert.ToBase64String(bytes);
+        }
 
         /// <summary>
         /// base64解密
