@@ -64,7 +64,7 @@ namespace eweb.handler
                 throw new MsgException("该功能方法尚未实现");
             }
 
-            var atts = method.GetCustomAttributes(typeof(Login), true);
+            var atts = method.GetCustomAttributes(typeof(CheckLogin), true);
             if (atts.Length>0)
             {
                 #region 检查是否登陆

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace eweb.attribute
 {
-    public class Login:Attribute
+    public class CheckLogin:Attribute
     {
 
     }
