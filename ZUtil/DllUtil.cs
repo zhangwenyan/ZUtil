@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ZUtil
 {
-    public class DllUtil
+    public static class DllUtil
     {
         public static object execute(String filename,String namespaceAndClassName,String methodName,object[] ps)
         {
@@ -19,16 +19,23 @@ namespace ZUtil
             try
             {
                 String dPath = filename;
+                
 
-                if (filename.IndexOf(":") == -1)
+                if (!Path.IsPathRooted(filename))
                 {
                     dPath = AppDomain.CurrentDomain.BaseDirectory + filename;
                 }
 
                 if (!File.Exists(dPath))
                 {
+                    dPath = AppDomain.CurrentDomain.BaseDirectory +"bin\\"+ filename;
+                }
+
+                if (!File.Exists(dPath))
+                {
                     throw new Exception("缺少" + filename + "文件");
                 }
+
 
                 assembly = Assembly.LoadFile(dPath); 
             }
@@ -45,7 +52,6 @@ namespace ZUtil
                 throw new Exception("method:" + methodName + " not exist");
             }
             return method.Invoke(null, ps);
-
         }
 
     }

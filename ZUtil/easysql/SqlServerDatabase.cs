@@ -54,7 +54,7 @@ namespace easysql
                 @") easysql_query 
                   ) easysql_result where 1=1 ";
 
-            Regex reg = new Regex(@"(.*)(order\s+by\s+(\w+(\s+desc)?)(,(\w+(\s+desc)?))*)\s*$");
+            Regex reg = new Regex(@"^([\s\S]*)(order\s+by\s+(\w+(\s+desc)?)(,(\w+(\s+desc)?))*)\s*$");
             var match = reg.Match(sql);
             if (match.Success)
             {

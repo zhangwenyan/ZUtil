@@ -107,11 +107,11 @@ namespace easysql
         /// <param name="rows"></param>
         /// <param name="paramValues"></param>
         /// <returns></returns>
-        public List<T> QueryPageBySql<T>(String sql, int page, int rows, params Object[] paramValues) where T : new()
+        public List<T> QueryPageBySql<T>(String sql, int page, int rows,out int total, params Object[] paramValues) where T : new()
         {
             using (BaseDatabase db = CreateDatabaseAndOpen())
             {
-                return db.QueryPageBySql<T>(sql, page, rows, paramValues);
+                return db.QueryPageBySql<T>(sql, page, rows,out total, paramValues);
             }
         }
         /// <summary>
@@ -122,11 +122,11 @@ namespace easysql
         /// <param name="rows"></param>
         /// <param name="paramValues"></param>
         /// <returns></returns>
-        public List<dynamic> QueryPageBySql_Dy(String sql, int page, int rows, params Object[] paramValues)
+        public List<dynamic> QueryPageBySql_Dy(String sql, int page, int rows,out int total, params Object[] paramValues)
         {
             using (BaseDatabase db = CreateDatabaseAndOpen())
             {
-                return db.QueryPageBySql_Dy(sql, page, rows, paramValues);
+                return db.QueryPageBySql_Dy(sql, page, rows,out total, paramValues);
             }
         }
 
@@ -321,14 +321,28 @@ namespace easysql
         /// <typeparam name="T"></typeparam>
         /// <param name="tbname"></param>
         /// <param name="model"></param>
-        public void Modify<T>(string tbname, T model)
+        public int Modify<T>(string tbname, T model)
         {
             using (BaseDatabase db = CreateDatabaseAndOpen())
             {
-                db.Modify(tbname, model);
-
+                return db.Modify(tbname, model);
             }
         }
+
+        /// <summary>
+        /// 修改Id为model.Id的数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tbname"></param>
+        /// <param name="model"></param>
+        public void Modify<T>(string tbname, T model, string[] pros)
+        {
+            using (BaseDatabase db = CreateDatabaseAndOpen())
+            {
+                db.Modify(tbname, model, pros);
+            }
+        }
+
         /// <summary>
         /// 通过id查询对象
         /// </summary>

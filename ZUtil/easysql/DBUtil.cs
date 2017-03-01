@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace easysql
 {
     /// <summary>
     /// 生成sql语句的工具类
     /// </summary>
-    public class DBUtil
+    public static class DBUtil
     {
         /// <summary>
         /// 查询语句的转换
@@ -165,6 +166,18 @@ namespace easysql
             QueryBean(bean, sqlWhere, sqlOrder, list, ref i, restrains);
         }
 
+        public static String getSqlCount(String sql)
+        {
+            if (sql.IndexOf("order ") == -1)
+            {
+                return sql;
+            }
+            else
+            {
+                return "select count(*) from (" + sql.Substring(0,sql.IndexOf("order ")) + ") as easysql_tb";
+            }
+        }
+
         public static List<T> ToList<T>(DataTable dt) where T : new()
         {
             var result = new List<T>();
@@ -199,6 +212,10 @@ namespace easysql
             PropertyInfo[] prlist = type.GetProperties();
             foreach (var p in prlist)
             {
+                if (!dr.Table.Columns.Contains(p.Name))
+                {
+                    continue;
+                }
                 object val = dr[p.Name];
                 if (val != DBNull.Value)
                 {

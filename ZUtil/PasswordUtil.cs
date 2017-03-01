@@ -11,7 +11,7 @@ namespace ZUtil
     /// <summary>
     /// 密码工具类
     /// </summary>
-    public class PasswordUtil
+    public static class PasswordUtil
     {
 
         /// <summary>
@@ -22,6 +22,10 @@ namespace ZUtil
         public static String base64Encoded(String str)
         {
             byte[] bytes = Encoding.Default.GetBytes(str);
+            return Convert.ToBase64String(bytes);
+        }
+        public static String base64Encoded(byte[] bytes)
+        {
             return Convert.ToBase64String(bytes);
         }
 

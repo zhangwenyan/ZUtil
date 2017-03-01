@@ -10,9 +10,10 @@ namespace ZUtil
     /// <summary>
     /// 短信工具类
     /// </summary>
-    public class SmsUtil
+    public static class SmsUtil
     {
-        public static string smsSendWay = ConfigurationManager.AppSettings["smsSendWay_zutil"] ?? "db";
+        public static readonly String smsSendWay = ConfigUtil.readSetting("smsSendWay_zutil", "db");
+
         /// <summary>
         /// 发送短信
         /// 需要配置短信数据库连接字符串connStr_smsdb
@@ -35,21 +36,25 @@ namespace ZUtil
         public static void sendSms(String mbno,String msg,DateTime dt)
         {
 
-
+       
             if (smsSendWay == "db")
             {
-                String connStr_smsdb = ConfigurationManager.AppSettings["connStr_smsdb"];
-                String dbType = ConfigurationManager.AppSettings["dbType_smsdb"];
-
-                if (String.IsNullOrEmpty(connStr_smsdb))
-                {
-                    throw new SmsUtilException("没有配置短信数据库连接字符串connStr_smsdb");
-                }
+                String connStr_smsdb = ConfigUtil.readSetting("connStr_smsdb");
+                String dbType = ConfigUtil.readSetting("dbType_smsdb");
                 sendSmsByConnStr_smsdb(mbno, msg, dt, connStr_smsdb, dbType);
             }
             else if(smsSendWay == "zsms")
             {
-                DllUtil.execute("zsms.dll", "zsms.SmsMethod", "sendSms", new object[] { mbno,msg });
+                try
+                {
+                    DllUtil.execute("zsms.dll", "zsms.SmsMethod", "sendSms", new object[] { mbno, msg });
+                }catch(Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        throw ex.InnerException;
+                    }
+                }
             }
             else
             {
@@ -86,7 +91,13 @@ namespace ZUtil
                 dbType = "mysql";
             }
 
-           var dh = easysql.DBHelperFactory.Create(dbType, connStr_smsdb);
+            if (String.IsNullOrEmpty(connStr_smsdb))
+            {
+                throw new SmsUtilException("没有配置短信数据库连接字符串connStr_smsdb");
+            }
+
+
+            var dh = easysql.DBHelperFactory.Create(dbType, connStr_smsdb);
             if (dt != DateTime.MinValue)
             {
                 dh.Execute("insert into OutBox(mbno, msg,sendTime) values({0},{1},{2})", mbno, msg, dt);

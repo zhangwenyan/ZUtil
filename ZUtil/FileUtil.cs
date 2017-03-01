@@ -10,7 +10,7 @@ namespace ZUtil
     /// <summary>
     /// 文件操作工具类
     /// </summary>
-    public class FileUtil
+    public static class FileUtil
     {
         #region 获取文件路并自动创建目录
         /// <summary>
@@ -22,7 +22,7 @@ namespace ZUtil
         /// <param name="code"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public string GetFiePathAndCreateDirectoryByCode<T>(string directory, T code, string fileName)
+        public static string GetFiePathAndCreateDirectoryByCode<T>(string directory, T code, string fileName)
         {
             if (directory == null)
             {
@@ -47,7 +47,7 @@ namespace ZUtil
         /// <param name="code"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public string GetFiePathAndCreateDirectoryByDate<T>(string directory, string fileName)
+        public static string GetFiePathAndCreateDirectoryByDate<T>(string directory, string fileName)
         {
             if (directory == null)
             {
@@ -1072,6 +1072,34 @@ namespace ZUtil
 
         }
         #endregion
+
+        public static String findFile(String filename)
+        {
+            String path = filename;
+
+            if (!Path.IsPathRooted(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory + filename;
+
+            }
+
+
+            if (!File.Exists(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory + filename;
+            }
+
+            if (!File.Exists(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory +"bin\\"+ filename;
+            }
+
+            if (File.Exists(path))
+            {
+                return path;
+            }
+            return filename;
+        }
 
 
     }

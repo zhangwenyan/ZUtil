@@ -11,7 +11,7 @@ namespace ZUtil
     /// <summary>
     /// 邮件操作工具类
     /// </summary>
-    public class EmailUtil
+    public static class EmailUtil
     {
 
         /// <summary>
@@ -74,19 +74,18 @@ namespace ZUtil
         /// <param name="msg">邮件内容</param>
         public static void sendEmail(String receivers, String title, String msg)
         {
-            var emailAccount = ConfigurationManager.AppSettings["emailAccount"];
-            var emailPassword = ConfigurationManager.AppSettings["emailPassword"];
-            var smtpServer = ConfigurationManager.AppSettings["smtpServer"];
-            var smtpPort = int.Parse(ConfigurationManager.AppSettings["smtpPort"] ?? "25");
-            var sslEnable = bool.Parse(ConfigurationManager.AppSettings["sslEnable"] ?? "false");
-
+            var emailAccount = ConfigUtil.readSetting("emailAccount");
+            var emailPassword = ConfigUtil.readSetting("emailPassword");
+            var smtpServer = ConfigUtil.readSetting("smtpServer");
+            var smtpPort = int.Parse(ConfigUtil.readSetting("smtpPort","25"));
+            var sslEnable = bool.Parse(ConfigUtil.readSetting("sslEnable", "false"));
 
             if (String.IsNullOrWhiteSpace(emailAccount) || String.IsNullOrWhiteSpace(emailPassword) || String.IsNullOrWhiteSpace(smtpServer))
             {
                     throw new Exception("请配置emailAccount,emailPassword,smtpServer");
             }
 
-                sendEmail(receivers, title, msg, emailAccount, emailPassword, smtpServer, smtpPort, sslEnable);
+            sendEmail(receivers, title, msg, emailAccount, emailPassword, smtpServer, smtpPort, sslEnable);
            
         }
 

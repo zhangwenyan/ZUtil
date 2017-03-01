@@ -8,7 +8,7 @@ namespace ZUtil
     /// <summary>
     /// ip工具类
     /// </summary>
-    public class IpUtil
+    public static class IpUtil
     {
         /// <summary>
         /// 将ip转换为长整形数据

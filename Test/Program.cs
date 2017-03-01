@@ -15,9 +15,11 @@ namespace Test
 
             //  var t = DllUtil.execute("zsms.dll", "zsms.SmsMethod", "sendSms", new object[] { "17681109309","test 123333" });
 
-            SmsUtil.sendSms("17681109309", "1234567890");
+            // SmsUtil.sendSms("17681109309", "1234567890");
 
 
+            //var ttt = ConfigUtil.readSetting("connStr_smsdb", "bbbb");
+            var mm = MacUtil.formatMac("DC-53-60-98-7D-68");
 
         }
     }
