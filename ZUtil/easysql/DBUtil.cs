@@ -170,7 +170,7 @@ namespace easysql
         {
             if (sql.IndexOf("order ") == -1)
             {
-                return sql;
+                return "select count(*) from ("+sql+ ") as easysql_tb";
             }
             else
             {

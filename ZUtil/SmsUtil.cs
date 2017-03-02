@@ -54,6 +54,7 @@ namespace ZUtil
                     {
                         throw ex.InnerException;
                     }
+                    throw ex;
                 }
             }
             else

@@ -1094,6 +1094,16 @@ namespace ZUtil
                 path = AppDomain.CurrentDomain.BaseDirectory +"bin\\"+ filename;
             }
 
+            if (!File.Exists(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory + "dll\\" + filename;
+            }
+            if (!File.Exists(path))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory + "bin\\dll\\" + filename;
+            }
+
+
             if (File.Exists(path))
             {
                 return path;

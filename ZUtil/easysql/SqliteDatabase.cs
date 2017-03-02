@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using ZUtil;
+
 namespace easysql
 {
     public class SqliteDatabase:BaseDatabase
@@ -24,7 +26,7 @@ namespace easysql
                 Assembly assembly = null;
                 try
                 {
-                    assembly = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + filename); // 加载程序集（EXE 或 DLL） 
+                    assembly = Assembly.LoadFile(FileUtil.findFile(filename)); // 加载程序集（EXE 或 DLL） 
                 }
                 catch (Exception)
                 {

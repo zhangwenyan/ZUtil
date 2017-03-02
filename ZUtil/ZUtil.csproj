@@ -89,10 +89,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dll\Newtonsoft.Json.dll" />
-    <Content Include="mysql.data.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="System.Data.SQLite.dll" />
+    <Content Include="dll\mysql.data.dll" />
+    <Content Include="dll\System.Data.SQLite.dll" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
   </ItemGroup>

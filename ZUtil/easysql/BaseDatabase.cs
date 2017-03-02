@@ -188,7 +188,7 @@ namespace easysql
         {
             DataTable dt = ExecuteDataTable(sql, (page - 1) * rows, rows, paramValues);
             String sqlCount = DBUtil.getSqlCount(sql);
-            total = (int)ExecuteScalar(sqlCount, paramValues);
+            total = int.Parse(ExecuteScalar(sqlCount, paramValues).ToString());
             return DBUtil.ToList<T>(dt);
         }
         public List<dynamic> QueryPageBySql_Dy(String sql, int page, int rows,out int total,  params Object[] paramValues)
