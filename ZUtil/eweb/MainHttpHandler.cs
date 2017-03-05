@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-using eweb.ex;
-using eweb.attribute;
 using Newtonsoft.Json;
 using System.Web.SessionState;
 
-namespace eweb.handler
+namespace eweb
 {
     public class MainHttpHandler : IHttpHandler, IRequiresSessionState
     {

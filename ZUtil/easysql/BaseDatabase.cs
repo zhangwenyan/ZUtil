@@ -254,6 +254,8 @@ namespace easysql
             return Total(sql, paramValues.ToArray());
         }
 
+
+
         public int Total(String sql,params Object[] paramValues)
         {
             return int.Parse(this.ExecuteScalar(sql, paramValues.ToArray()).ToString());

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ZUtil.eweb.attribute
+namespace eweb
 {
     public class Table:Attribute
     {

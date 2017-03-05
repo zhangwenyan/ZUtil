@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace eweb.ex
+namespace eweb
 {
     public class MsgException:Exception
     {
