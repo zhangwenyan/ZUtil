@@ -18,7 +18,7 @@ namespace easysql
         /// </summary>
         /// <param name="connString">user id=用户名;password=密码;initial catalog=数据库名;Server=服务地址</param>
         public SqlServerDatabase(String connString)
-            : base("@Param","@Param")
+            : base("@Param","@Param",DBType.ole)
         {
             this._connString = connString;
         }

@@ -21,7 +21,7 @@ namespace easysql
         /// </summary>
         /// <param name="connString">server=数据库地址;database=数据库名;Persist Security Info=False;uid=用户名;pwd=密码</param>
         public MySqlDatabase(String connString)
-            : base("@Param", "?@Param")
+            : base("@Param", "?@Param",DBType.mysql)
         {
             this._connString = connString;
             if(_ConnectionType == null)

@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using System.Data;
 using System.Text.RegularExpressions;
+using System.Data;
 
 namespace easysql
 {
     /// <summary>
     /// 生成sql语句的工具类
     /// </summary>
-    public static class DBUtil
+    public class DBUtil
     {
+
+        private DBType dbType;
+        public DBUtil(DBType dbType)
+        {
+            this.dbType = dbType;
+        }
+
         /// <summary>
         /// 查询语句的转换
         /// </summary>
@@ -23,7 +30,7 @@ namespace easysql
         /// <param name="paramValues"></param>
         /// <param name="i"></param>
         /// <param name="restrains"></param>
-        public static void QueryBean<T>(T bean, StringBuilder sqlWhere, StringBuilder sqlOrder, List<Object> paramValues, ref int i, params Restrain[] restrains)
+        public void QueryBean<T>(T bean, StringBuilder sqlWhere, StringBuilder sqlOrder, List<Object> paramValues, ref int i, params Restrain[] restrains)
         {
             if (bean != null && sqlWhere != null)
             {
@@ -46,14 +53,14 @@ namespace easysql
                         if (value.ToString().Length != 0)
                         {
                             //如果是字符串类型，则加入like约束
-                            sqlWhere.AppendFormat(" and {0} like {{{1}}}", name, i++);
+                            sqlWhere.AppendFormat(" and {0} like {{{1}}}", packPName(name), i++);
                             paramValues.Add("%" + value + "%");
                         }
                     }
                     else if (pType.IsValueType)
                     {
                         //如果是值类型,则加入等于约束
-                        sqlWhere.AppendFormat(" and {0}={{{1}}}", name, i++);
+                        sqlWhere.AppendFormat(" and {0}={{{1}}}", packPName(name), i++);
                         paramValues.Add(value);
                     }
 
@@ -71,12 +78,12 @@ namespace easysql
                             var end = restrain.Values[1];
                             if (start != null && !start.Equals(DefaultForType(start.GetType())))
                             {
-                                sqlWhere.AppendFormat(" and {0}>={{{1}}}", restrain.Key, i++);
+                                sqlWhere.AppendFormat(" and {0}>={{{1}}}", packPName(restrain.Key), i++);
                                 paramValues.Add(start);
                             }
                             if (end != null && !end.Equals(DefaultForType(end.GetType())))
                             {
-                                sqlWhere.AppendFormat(" and {0}<={{{1}}}", restrain.Key, i++);
+                                sqlWhere.AppendFormat(" and {0}<={{{1}}}", packPName(restrain.Key), i++);
                                 paramValues.Add(end);
                             }
                             break;
@@ -92,26 +99,26 @@ namespace easysql
                             {
                                 ci = " not in ";
                             }
-                            sqlWhere.Append(" and " + restrain.Key + " " + ci + " (" + string.Join(",", arr) + ")");
+                            sqlWhere.Append(" and " + packPName(restrain.Key) + " " + ci + " (" + string.Join(",", arr) + ")");
                             break;
                         case RestrainType.eq:
-                            sqlWhere.AppendFormat(" and {0}={{{1}}}", restrain.Key, i++);
+                            sqlWhere.AppendFormat(" and {0}={{{1}}}", packPName(restrain.Key), i++);
                             paramValues.Add(restrain.Values[0]);
                             break;
                         case RestrainType.lt:
-                            sqlWhere.AppendFormat(" and {0}<{{{1}}}", restrain.Key, i++);
+                            sqlWhere.AppendFormat(" and {0}<{{{1}}}", packPName(restrain.Key), i++);
                             paramValues.Add(restrain.Values[0]);
                             break;
                         case RestrainType.gt:
-                            sqlWhere.AppendFormat(" and {0}>{{{1}}}", restrain.Key, i++);
+                            sqlWhere.AppendFormat(" and {0}>{{{1}}}", packPName(restrain.Key), i++);
                             paramValues.Add(restrain.Values[0]);
                             break;
                         case RestrainType.not:
-                            sqlWhere.AppendFormat(" and {0} != {{{1}}}", restrain.Key, i++);
+                            sqlWhere.AppendFormat(" and {0} != {{{1}}}", packPName(restrain.Key), i++);
                             paramValues.Add(restrain.Values[0]);
                             break;
                         case RestrainType.like:
-                            sqlWhere.AppendFormat(" and {0} like {{{1}}}", restrain.Key, i++);
+                            sqlWhere.AppendFormat(" and {0} like {{{1}}}", packPName(restrain.Key), i++);
                             paramValues.Add(restrain.Values[0]);
                             break;
 
@@ -132,11 +139,11 @@ namespace easysql
                         case RestrainType.orderdesc:
                             if (sqlOrder.Length == 0)
                             {
-                                sqlOrder.Append("order by " + restrain.Key);
+                                sqlOrder.Append("order by " + packPName(restrain.Key));
                             }
                             else
                             {
-                                sqlOrder.Append("," + restrain.Key);
+                                sqlOrder.Append("," + packPName(restrain.Key));
                             }
                             if (restrain.RestrainType == RestrainType.orderdesc)
                             {
@@ -160,13 +167,13 @@ namespace easysql
         /// <param name="sqlOrder"></param>
         /// <param name="list"></param>
         /// <param name="restrains"></param>
-        public static void QueryBean<T>(T bean, StringBuilder sqlWhere, StringBuilder sqlOrder, List<object> list, params Restrain[] restrains)
+        public void QueryBean<T>(T bean, StringBuilder sqlWhere, StringBuilder sqlOrder, List<object> list, params Restrain[] restrains)
         {
             var i = 0;
             QueryBean(bean, sqlWhere, sqlOrder, list, ref i, restrains);
         }
 
-        public static String getSqlCount(String sql)
+        public String getSqlCount(String sql)
         {
             if (sql.IndexOf("order ") == -1)
             {
@@ -177,6 +184,20 @@ namespace easysql
                 return "select count(*) from (" + sql.Substring(0,sql.IndexOf("order ")) + ") as easysql_tb";
             }
         }
+
+        public String packPName(String pName)
+        {
+            switch (this.dbType)
+            {
+                case DBType.mysql:
+                    return "'" + pName + "'";
+                case DBType.sqlServer:
+                    return "[" + pName + "]";
+                default:
+                    return pName;
+            }
+        }
+
 
         public static List<T> ToList<T>(DataTable dt) where T : new()
         {
@@ -262,7 +283,7 @@ namespace easysql
             return dynamicDt;
         }
 
-
+       
         /// <summary>
         /// 该方法可以将数据库中string类型转换为DateTime类型或int类型
         /// </summary>

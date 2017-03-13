@@ -10,7 +10,7 @@ namespace easysql
     {
         private String _connString;
         public OracleDatabase(String connString)
-            : base("Param", ":Param")
+            : base("Param", ":Param",DBType.oracle)
         {
             _connString = connString;
         }

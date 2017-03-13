@@ -11,7 +11,7 @@ namespace easysql
         protected String _autoIncreSqlStr;
         protected String _connString;
         public OleDatabase(String connString, String paramNamePrefix, String paramPrefix, String autoIncreSqlStr)
-            : base(paramNamePrefix, paramPrefix)
+            : base(paramNamePrefix, paramPrefix,DBType.ole)
         {
             this._connString = connString;
             this._autoIncreSqlStr = autoIncreSqlStr;

@@ -18,7 +18,7 @@ namespace easysql
 
         private String _connString;
         public SqliteDatabase(String connString)
-            : base("@Param", "@Param")
+            : base("@Param", "@Param",DBType.sqlite)
         {
             this._connString = connString;
             if (_ConnectionType == null)

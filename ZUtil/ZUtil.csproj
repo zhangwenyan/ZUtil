@@ -54,6 +54,7 @@
     <Compile Include="easysql\DatabaseFactory.cs" />
     <Compile Include="easysql\DatabaseType.cs" />
     <Compile Include="easysql\DBHelperFactory.cs" />
+    <Compile Include="easysql\DBType.cs" />
     <Compile Include="easysql\DBUtil.cs" />
     <Compile Include="easysql\ExcelDatabase.cs" />
     <Compile Include="easysql\ExcelHelper.cs" />

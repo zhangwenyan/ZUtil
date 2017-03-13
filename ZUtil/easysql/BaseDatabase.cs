@@ -8,6 +8,7 @@ using System.Reflection;
 
 namespace easysql
 {
+
     /// <summary>
     /// 数据库连接的基类
     /// </summary>
@@ -19,10 +20,14 @@ namespace easysql
         protected DbConnection _dbConnection;
         protected int _executeTimeout = 60;//执行超时时间
         private DbTransaction _dbTranscation;//事务
+        private DBType dbType;
+        private DBUtil dbUtil;
 
-        protected BaseDatabase(String paramNamePrefix,String paramPrefix){
+        protected BaseDatabase(String paramNamePrefix,String paramPrefix,DBType dbType){
             this._paramNamePrefix = paramNamePrefix;
             this._paramPrefix = paramPrefix;
+            this.dbType = dbType;
+            this.dbUtil = new DBUtil(dbType);
         }
         #region 必须重载的方法
         /// <summary>
@@ -187,14 +192,14 @@ namespace easysql
         public List<T> QueryPageBySql<T>(String sql, int page, int rows,out int total, params Object[] paramValues) where T : new()
         {
             DataTable dt = ExecuteDataTable(sql, (page - 1) * rows, rows, paramValues);
-            String sqlCount = DBUtil.getSqlCount(sql);
+            String sqlCount = this.dbUtil.getSqlCount(sql);
             total = int.Parse(ExecuteScalar(sqlCount, paramValues).ToString());
             return DBUtil.ToList<T>(dt);
         }
         public List<dynamic> QueryPageBySql_Dy(String sql, int page, int rows,out int total,  params Object[] paramValues)
         {
             DataTable dt = ExecuteDataTable(sql, (page - 1) * rows, rows, paramValues);
-            String sqlCount = DBUtil.getSqlCount(sql);
+            String sqlCount = this.dbUtil.getSqlCount(sql);
             total = (int)ExecuteScalar(sqlCount, paramValues);
             return DBUtil.ToDynamic(dt);
         }
@@ -216,7 +221,7 @@ namespace easysql
             var sqlWhere = new StringBuilder();
             var sqlOrder = new StringBuilder();
             var paramValues = new List<Object>();
-            DBUtil.QueryBean(bean, sqlWhere, sqlOrder, paramValues, restrains);
+            this.dbUtil.QueryBean(bean, sqlWhere, sqlOrder, paramValues, restrains);
             var sql = "select * from " + tbname + " where 1=1 " + sqlWhere +" "+ sqlOrder;
             return QueryBySql<T>(sql, paramValues.ToArray());
             //DataTable dt = ExecuteDataTable(sql, paramValues.ToArray());
@@ -228,7 +233,7 @@ namespace easysql
             var sqlWhere = new StringBuilder();
             var sqlOrder = new StringBuilder();
             var paramValues = new List<Object>();
-            DBUtil.QueryBean(bean, sqlWhere, sqlOrder, paramValues, restrains);
+            this.dbUtil.QueryBean(bean, sqlWhere, sqlOrder, paramValues, restrains);
             var sql = "select * from " + tbname + " where 1=1 " + sqlWhere + " " + sqlOrder;
             var dt = ExecuteDataTable(sql, paramValues.ToArray());
             return DBUtil.ToDynamic(dt);
@@ -249,7 +254,7 @@ namespace easysql
         {
             var sqlWhere = new StringBuilder();
             var paramValues = new List<Object>();
-            DBUtil.QueryBean(bean, sqlWhere, null, paramValues, restrains);
+            this.dbUtil.QueryBean(bean, sqlWhere, null, paramValues, restrains);
             var sql = "select count(*) from " + tbname + " where 1=1 " + sqlWhere;
             return Total(sql, paramValues.ToArray());
         }
@@ -267,7 +272,7 @@ namespace easysql
             var sqlWhere = new StringBuilder();
             var sqlOrder = new StringBuilder();
             var paramValues = new List<Object>();
-            DBUtil.QueryBean(bean, sqlWhere, sqlOrder, paramValues, restrains);
+            this.dbUtil.QueryBean(bean, sqlWhere, sqlOrder, paramValues, restrains);
             var sql = "select * from " + tbname + " where 1=1 " + sqlWhere + " " + sqlOrder;
             var sqlCount = "select count(*) from " + tbname + " where 1=1 " + sqlWhere;
             total = int.Parse(this.ExecuteScalar(sqlCount, paramValues.ToArray()).ToString());
@@ -311,7 +316,7 @@ namespace easysql
                 Add<T>(tbname, model);
             }
         }
-
+    
         private void Add<T>(string tbname, T model, Boolean autoSetId)
         {
             var sql1 = new StringBuilder();
@@ -335,8 +340,7 @@ namespace easysql
                     //如果值是默认状态,则跳过????
                     continue;
                 }
-
-                sql1.Append(name + ",");
+                sql1.Append(this.dbUtil.packPName(name) + ",");
                 sql2.AppendFormat("{{{0}}},", i++);
                 paramValues.Add(value);
             }
@@ -381,7 +385,7 @@ namespace easysql
             var sqlWhere = new StringBuilder();
             var paramValues = new List<object>();
 
-            DBUtil.QueryBean(bean, sqlWhere, null, paramValues, restrains);
+            this.dbUtil.QueryBean(bean, sqlWhere, null, paramValues, restrains);
 
             var sql = "delete from " + tbname + " where 1=1 " + sqlWhere;
             return Execute(sql, paramValues.ToArray());
@@ -439,7 +443,7 @@ namespace easysql
                         continue;
                     }
                 }
-                sql1.AppendFormat("{0}={{{1}}},", name, i++);
+                sql1.AppendFormat("{0}={{{1}}},", this.dbUtil.packPName(name), i++);
 
                 if (value is DateTime && (DateTime)value == DateTime.MinValue)
                 {
@@ -495,7 +499,7 @@ namespace easysql
                     continue;
                 }
 
-                sql1.AppendFormat("{0}={{{1}}},", name, i++);
+                sql1.AppendFormat("{0}={{{1}}},", this.dbUtil.packPName(name), i++);
                 paramValues.Add(value);
 
             }
