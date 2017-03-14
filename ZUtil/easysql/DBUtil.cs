@@ -190,7 +190,7 @@ namespace easysql
             switch (this.dbType)
             {
                 case DBType.mysql:
-                    return "'" + pName + "'";
+                    return "`" + pName + "`";
                 case DBType.sqlServer:
                     return "[" + pName + "]";
                 default:
