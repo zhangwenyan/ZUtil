@@ -71,6 +71,7 @@
     <Compile Include="easysql\SqlServerHelper.cs" />
     <Compile Include="EmailUtil.cs" />
     <Compile Include="eweb\CheckLogin.cs" />
+    <Compile Include="eweb\ResultDic.cs" />
     <Compile Include="eweb\Table.cs" />
     <Compile Include="eweb\BaseController.cs" />
     <Compile Include="eweb\MsgException.cs" />
