@@ -64,6 +64,15 @@ namespace easysql
                     @") easysql_query 
                   ) easysql_result where 1=1 ";
             }
+            else
+            {
+                Regex reg2 = new Regex(@"^([\s\S]*)(order\s+by\s+(.+(\s+desc)?)(,(.+(\s+desc)?))*)\s*$");
+                if (reg2.IsMatch(sql))
+                {
+                    //很复杂的sql
+                    return sql;
+                }
+            }
 
 
 
