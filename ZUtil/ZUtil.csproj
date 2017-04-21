@@ -94,8 +94,6 @@
     <Content Include="dll\Newtonsoft.Json.dll" />
     <Content Include="dll\mysql.data.dll" />
     <Content Include="dll\System.Data.SQLite.dll" />
-    <Content Include="x64\SQLite.Interop.dll" />
-    <Content Include="x86\SQLite.Interop.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
