@@ -32,6 +32,19 @@ namespace ZUtil
             }
             return StringOut;
         }
+
+        public static byte[] stringToByte(string hexString)
+        {
+            hexString = hexString.Replace(" ", "");
+            if ((hexString.Length % 2) != 0)
+                hexString += " ";
+            byte[] returnBytes = new byte[hexString.Length / 2];
+            for (int i = 0; i < returnBytes.Length; i++)
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+            return returnBytes;
+
+        }
+
         /// <summary>
         /// crc16_modbus加密(x16+x15+x2+1)
         /// </summary>

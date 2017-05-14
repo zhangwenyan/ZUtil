@@ -50,5 +50,12 @@ namespace ZUtil
             config.Save();
         }
 
+
+
+        public static void changeSettingByPwd(String key,String value)
+        {
+            changeSetting(key, PasswordUtil.YouoEncrypt(value));
+        }
+
     }
 }
